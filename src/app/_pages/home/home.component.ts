@@ -3,13 +3,16 @@ import {NgForOf} from "@angular/common";
 import {Observable} from "rxjs";
 import {User} from "../../_models/user.model";
 import {UserService} from "../../_services/user.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink,
+    MatIcon
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
