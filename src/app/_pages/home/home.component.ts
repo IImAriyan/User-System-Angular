@@ -5,6 +5,7 @@ import {UserService} from "../../_services/user.service";
 import {Router, RouterLink} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,7 @@ export class HomeComponent {
   findIndex: number = 0;
   errorMessage: string | undefined = undefined;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private cookieService : CookieService) {
     this.reloadUsers();
     this.loginForm = new FormGroup({
       username: new FormControl("",[Validators.required, Validators.maxLength(20)]),
@@ -46,9 +47,15 @@ export class HomeComponent {
     for (let user of this.users$) {
 
       if (user.Username === Username) {
-
+        this.errorMessage = undefined;
+        this.findIndex = 1;
+          if (user.Password === Password) {
+            this.errorMessage = undefined;
+            this.cookieService.set("?userlogindToSite?", user.userID)
+          }else {
+            this.errorMessage = "Password Is Wrong !!!"
+          }
       }
-
     }
     if (this.findIndex == 0) {
       this.errorMessage = "User Not Found";
