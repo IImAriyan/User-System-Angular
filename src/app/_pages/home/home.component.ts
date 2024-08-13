@@ -26,7 +26,7 @@ export class HomeComponent {
   findIndex: number = 0;
   errorMessage: string | undefined = undefined;
 
-  constructor(private userService: UserService, private cookieService : CookieService) {
+  constructor(private userService: UserService, private cookieService : CookieService, private router: Router) {
     this.reloadUsers();
     this.loginForm = new FormGroup({
       username: new FormControl("",[Validators.required, Validators.maxLength(20)]),
@@ -41,6 +41,9 @@ export class HomeComponent {
   }
 
   submit() {
+
+    this.reloadUsers();
+
     const Username = this.loginForm.controls['username'].value;
     const Password = this.loginForm.controls['password'].value;
 
@@ -51,7 +54,9 @@ export class HomeComponent {
         this.findIndex = 1;
           if (user.Password === Password) {
             this.errorMessage = undefined;
-            this.cookieService.set("?userlogindToSite?", user.userID)
+
+            this.cookieService.set("?userlogindToSite?", user.userID);
+            this.router.navigate(['/dashboard'])
           }else {
             this.errorMessage = "Password Is Wrong !!!"
           }
