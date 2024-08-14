@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {User} from "../../_models/user.model";
 import {UserService} from "../../_services/user.service";
 import Swal from "sweetalert2";
+import {MenuItem} from "../../_models/menu-item.model";
 @Component({
   selector: 'app-register',
   standalone: true,
-    imports: [
-        FormsModule,
-        MatIcon,
-        NgIf,
-        ReactiveFormsModule,
-        RouterLink
-    ],
+  imports: [
+    FormsModule,
+    MatIcon,
+    NgIf,
+    ReactiveFormsModule,
+    RouterLink,
+    NgForOf
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -23,7 +25,21 @@ export class RegisterComponent {
   errorMessage: string | undefined = undefined;
   registerForm: FormGroup;
   users$! : User[] ;
+  menuOpen: boolean = false;
+  menuItems: MenuItem[] = [
+    {"Label":"Register","RouterLink":"/authentication/register"},{"Label":"Login","RouterLink":"/authentication/login"}
+  ];
+
   userRegisterd: User = new User();
+
+
+  openMenu() {
+    this.menuOpen = true;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
 
   private swalSuccess(message: string): void {
     Swal.fire({

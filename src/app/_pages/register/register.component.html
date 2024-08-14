@@ -1,16 +1,29 @@
-<main class="w-full h-screen bg-gradient-to-r from-gray-900 via-gray-800 via-gray-800 to-gray-900 flex justify-center items-center">
+<main class="w-full h-screen bg-gradient-to-r from-gray-900 via-gray-800 via-gray-800 to-gray-900 flex justify-center items-center max-[768px]:p-8">
 
-  <div class="rounded-xl bg-gray-900 p-4">
+  <div class="rounded-xl bg-gray-900 p-4 max-[768px]:p-6 max-[768px]:w-full max-[768px]:bg-sky-950">
 
-    <header class="flex justify-between items-center w-[50rem] p-5">
-      <nav class="flex justify-center gap-20 items-center">
-        <button routerLink="/authentication/register" class="text-white transition-all ease-in duration-300 cursor-pointer hover:text-neutral-500">Register</button>
-        <button routerLink="/authentication/login" class="text-white transition-all ease-in duration-300 cursor-pointer hover:text-neutral-500">Login</button>
-      </nav>
+    <header class="flex justify-between  w-[50rem] max-[768px]:w-full p-5">
 
-      <div class="text-white">
-        <mat-icon>menu</mat-icon>
+      <div *ngIf="!menuOpen" class="text-white absolute">
+        <mat-icon (click)="openMenu()">menu</mat-icon>
       </div>
+
+      <section *ngIf="menuOpen" class="w-[10rem]  bg-blue-600 rounded-xl  absolute">
+        <div class="text-white flex justify-end p-2" >
+          <mat-icon (click)="closeMenu()">close</mat-icon>
+        </div>
+
+        <div class="flex flex-col justify-center items-center">
+
+          <div class="w-full p-2 text-center text-white border-t-[1px] border-t-white  cursor-pointer
+          transition-all ease-in duration-300 hover:bg-blue-700" *ngFor="let menu of menuItems" routerLink="{{menu.RouterLink}}">
+            {{menu.Label}}
+          </div>
+
+        </div>
+
+      </section>
+
     </header>
 
     <div class="w-full h-auto flex flex-col justify-center items-center gap-8">
@@ -18,15 +31,15 @@
         Register To WebSite
       </div>
 
-      <section [formGroup]="registerForm" class="flex flex-col justify-center items-center gap-5">
+      <section [formGroup]="registerForm" class="flex flex-col justify-center items-center gap-5 w-full">
 
-        <input formControlName="username" type="text" placeholder="Username ..." class="w-[25rem] p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
+        <input formControlName="username" type="text" placeholder="Username ..." class="w-[25rem] max-[768px]:w-full p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
         transition-all ease-in focus:bg-gray-900 focus:border-[1px] focus:border-blue-800">
 
-        <input formControlName="password" type="password" placeholder="Password ..." class="w-[25rem] p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
+        <input formControlName="password" type="password" placeholder="Password ..." class="w-[25rem] max-[768px]:w-full p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
         transition-all ease-in focus:bg-gray-900 focus:border-[1px] focus:border-blue-800">
 
-        <input formControlName="passwordConfirm" type="password" placeholder="Password Confirm ..." class="w-[25rem] p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
+        <input formControlName="passwordConfirm" type="password" placeholder="Password Confirm ..." class="w-[25rem] max-[768px]:w-full p-5 border-[1px] border-blue-600 outline-none text-white placeholder:text-white bg-gray-800 rounded-xl ring-0
         transition-all ease-in focus:bg-gray-900 focus:border-[1px] focus:border-blue-800">
 
         <button [disabled]="!registerForm.valid"  (click)="submit()" class="p-3 bg-blue-600 rounded-xl text-white w-auto px-[5rem] h-auto transition-all ease-in duration-300
