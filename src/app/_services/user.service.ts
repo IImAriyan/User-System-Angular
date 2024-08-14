@@ -16,4 +16,9 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiLink + 'users-list')
   }
+
+  registerUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiLink + 'users-add', user)
+  }
+
 }
