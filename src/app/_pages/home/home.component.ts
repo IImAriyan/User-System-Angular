@@ -6,6 +6,7 @@ import {Router, RouterLink} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
+import {MenuItem} from "../../_models/menu-item.model";
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,18 @@ export class HomeComponent {
   loginForm : FormGroup;
   findIndex: number = 0;
   errorMessage: string | undefined = undefined;
+  menuOpen: boolean = false;
+  menuItems: MenuItem[] = [
+    {"Label":"Register","RouterLink":"/authentication/register"},{"Label":"Login","RouterLink":"/authentication/login"}
+  ];
+
+  openMenu() {
+    this.menuOpen = true;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
 
   constructor(private userService: UserService, private cookieService : CookieService, private router: Router) {
     this.reloadUsers();

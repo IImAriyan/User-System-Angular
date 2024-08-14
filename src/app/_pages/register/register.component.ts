@@ -26,12 +26,10 @@ export class RegisterComponent {
   registerForm: FormGroup;
   users$! : User[] ;
   menuOpen: boolean = false;
+  userRegisterd: User = new User();
   menuItems: MenuItem[] = [
     {"Label":"Register","RouterLink":"/authentication/register"},{"Label":"Login","RouterLink":"/authentication/login"}
   ];
-
-  userRegisterd: User = new User();
-
 
   openMenu() {
     this.menuOpen = true;
